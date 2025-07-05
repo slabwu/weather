@@ -1,4 +1,5 @@
 const form = document.querySelector('form')
+const $ = (id) => document.getElementById(id)
 
 async function fetchData(city) {
     try {
@@ -34,5 +35,13 @@ function processData(data) {
 form.addEventListener('submit', (e) => {
     e.preventDefault()
     let search = document.querySelector('#search').value
-    if (search) fetchData(search).then(console.log)
+    if (search) fetchData(search).then(
+        data => {
+            $('error').innerText = ''
+            console.log(data)
+        },
+        error => {
+            $('error').innerText = 'City not found'
+        }
+    )
 });
