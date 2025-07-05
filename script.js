@@ -34,6 +34,7 @@ function processData(data) {
 
 function renderData(data) {
     $('error').innerText = ''
+    $('forecast').innerText = ''
     console.log(data)
 
     $('city').innerText = data.address
