@@ -1,0 +1,37 @@
+#display {
+    background-color: orange;
+    display: grid;
+    grid: 2fr 1fr / 1fr 1fr;
+}
+
+#today {
+    background-color: red;
+    padding: 10px;
+}
+
+#details {
+    background-color: green;
+    display: grid;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+#details > div {
+    background-color: lime;
+}
+
+#forecast {
+    background-color: pink;
+    display: flex;
+    justify-content: space-between;
+    grid-column: span 2;
+    padding: 10px;
+}
+
+#forecast > div {
+    background-color: blue;
+    aspect-ratio: 1 / 1;
+    width: 200px;
+    padding: 10px;
+}

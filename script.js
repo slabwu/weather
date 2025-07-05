@@ -69,3 +69,5 @@ function addElement(name, tag, target, text = '') {
     element.innerHTML = text;
     document.getElementById(`${target}`).appendChild(element);
 }
+
+fetchData('Paris').then(renderData)
