@@ -1,13 +1,14 @@
+const form = document.querySelector('form')
+
 async function fetchData(city) {
     try {
         let url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&key=AZCAT733R2JW9VH8FKUAD45L4&contentType=json`
         let response = await fetch(url, {mode: 'cors'})
         let data = await response.json()
-        console.log(data)
-
         return processData(data)
+
     } catch (err) {
-        console.log(new Error('Unable to fetch data'));
+        throw new Error('Unable to fetch data')
     }
 }
 
@@ -30,4 +31,8 @@ function processData(data) {
     return processed
 }
 
-fetchData('New York').then(console.log)
+form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    let search = document.querySelector('#search').value
+    if (search) fetchData(search).then(console.log)
+});
