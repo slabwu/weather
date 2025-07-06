@@ -1,6 +1,6 @@
 :root {
     --accent: rgba(0, 255, 238, 0.1);
-    --foreground: rgba(35, 69, 169, 0.35);
+    --foreground: rgba(35, 93, 169, 0.35);
 }
 
 body {
@@ -84,7 +84,7 @@ body {
 }
 
 #details > div:hover {
-    transform: scale(1.03);
+    transform: scaleX(1.02) scaleY(1.04);
 }
 
 #forecast {
@@ -295,4 +295,34 @@ header {
     font-size: 14px;
     width: 200px;
     text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 100px;
+  aspect-ratio: 1;
+  display: grid;
+  border-radius: 50%;
+  background: radial-gradient(circle 20px, white 90%,#0000 );
+  filter: drop-shadow(0px 0px 1px #ffd738);
+  animation: l2 1s infinite;
+  top: 400px;
+  position: absolute;
+}
+.loader::before, 
+.loader::after {
+  content: "";
+  grid-area: 1/1;
+  border-radius: 50%;
+  --g:no-repeat linear-gradient(white 0 0) 50%;
+  background: 
+    var(--g)/100% 5px,
+    var(--g)/5px 100%;
+  -webkit-mask: radial-gradient(farthest-side,#0000 60%,#000 61%);
+}
+.loader::after {
+    transform: rotate(45deg);
+}
+@keyframes l2 {
+  to{transform: rotate(.5turn)}
 }

@@ -4,6 +4,9 @@ let unit = 'metric'
 let currentCity = 'New York'
 
 async function fetchData(city, unit = 'metric') {
+    $('display').style.display = 'none'
+    $('loader').style.display = 'grid'
+
     try {
         let url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=${unit}&key=AZCAT733R2JW9VH8FKUAD45L4&contentType=json`
         let response = await fetch(url, {mode: 'cors'})
@@ -11,6 +14,8 @@ async function fetchData(city, unit = 'metric') {
         return processData(data)
     } catch (err) {
         $('error').innerText = 'City not found'
+        $('display').style.display = 'grid'
+        $('loader').style.display = 'none'
         throw new Error('Unable to fetch data')
     }
 }
@@ -80,6 +85,7 @@ function renderData(data) {
     }
 
     $('display').style.display = 'grid'
+    $('loader').style.display = 'none'
 }
 
 form.addEventListener('submit', (e) => {
