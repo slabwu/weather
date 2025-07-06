@@ -1,12 +1,12 @@
 :root {
-    --accent: rgb(44, 155, 246);
-    --foreground: royalblue;
-    --background: deepskyblue;
+    --accent: rgba(0, 255, 238, 0.1);
+    --foreground: rgba(35, 69, 169, 0.35);
 }
 
 body {
     color: white;
-    background-color: var(--background);
+    /* background-color: var(--background); */
+    /* background-image: linear-gradient(to bottom right, rgb(154, 209, 227), deepskyblue, rgb(0, 84, 251)); */
     font-family: Montserrat, Helvetica, Arial, sans-serif;
     text-align: center;
     height: 100vh;
@@ -14,6 +14,8 @@ body {
     flex-direction: column;
     align-items: center;
     box-sizing: content-box;
+    background-image: url('./assets/sky.jpg');
+    background-size: cover;
 }
 
 #display {
@@ -23,13 +25,18 @@ body {
 }
 
 #today {
-    background-color: var(--accent);
+    /* background-color: var(--accent); */
+    background-color: rgba(121, 255, 246, 0.1);
     margin: 10px;
     border-radius: 20px;
     text-align: left;
-    /* display: grid; */
-    /* grid: 240px 20px 20px / 1fr 1fr; */
-    padding: 110px 0 0 40px;
+    padding: 128px 0 0 40px;
+    backdrop-filter: blur(10px);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+    position: relative;
 }
 
 #temperature {
@@ -48,8 +55,8 @@ body {
 #today #icon {
     width: 340px;
     position: absolute;
-    left: 440px;
-    top: 60px;
+    left: 300px;
+    top: 0px;
 }
 
 #details {
@@ -62,6 +69,11 @@ body {
 #details > div {
     background-color: var(--foreground);
     border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
 }
 
 #forecast {
@@ -82,6 +94,11 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    backdrop-filter: blur(10px);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
 }
 
 #forecast > div > div:nth-child(1) {
@@ -98,15 +115,33 @@ body {
     margin-top: 10px;
 }
 
+.temperature div:nth-child(1) {
+    color: rgba(255, 255, 255, 0.5);
+}
+
 input {
     margin: 10px;
     width: 240px;
     height: 34px;
     border-radius: 16px;
     border: none;
-    background-color: rgb(225, 225, 250);
+    background-color: var(--foreground);
     padding: 5px 6px 6px 12px;
     font-size: 14px;
+    color: white;
+    backdrop-filter: blur(10px);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    transition: all 0.5 ease;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+input:focus {
+    background-color: var(--foreground);
 }
 
 #submit {
@@ -116,10 +151,15 @@ input {
     border: none;
     border-radius: 100%;
     color: white;
-    background-color: royalblue;
+    background-color: var(--foreground);
     font-size: 20px;
     padding: 2px 0 0 2px;
     cursor: pointer;
+    backdrop-filter: blur(10px);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
 }
 
 img {
@@ -160,38 +200,41 @@ img {
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: var(--foreground);
-  -webkit-transition: .4s;
-  transition: .4s;
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: rgba(13, 21, 138, 0.5);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.3);
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: var(--accent);
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+    background-color: var(--accent);
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+    -webkit-transform: translateX(24px);
+    -ms-transform: translateX(24px);
+    transform: translateX(24px);
 }
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
+    border-radius: 34px;
+    backdrop-filter: blur(10px);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
 }
 
 .slider.round:before {
-  border-radius: 50%;
+    border-radius: 50%;
 }
 
 .labels {

@@ -38,7 +38,7 @@ function renderData(data) {
     $('forecast').innerText = ''
     console.log(data)
 
-    $('city').innerText = data.address
+    $('city').innerText = data.address.toUpperCase()
     $('weather').innerText = data.conditions
     $('temperature').innerText = `${data.temp}°`
     $('icon').src = `./assets/${data.icon}.svg`
