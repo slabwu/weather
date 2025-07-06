@@ -8,24 +8,36 @@
     <title>Weather</title>
 </head>
 <body>
-    <form action="">
-        <label for="search">Search</label>
-        <input type="search" id="search" name="search"/>
-        <button type="submit" id="submit">
-            <div style="-webkit-transform: rotate(45deg); 
-               -moz-transform: rotate(-45deg); 
-                 -o-transform: rotate(-45deg);
-                    transform: rotate(-45deg);">
-                &#9906;
+    <header>
+        <form action="">
+            <input type="search" id="search" name="search" placeholder="Search for a location"/>
+            <button type="submit" id="submit">
+                <div style="-webkit-transform: rotate(45deg); 
+                -moz-transform: rotate(-45deg); 
+                    -o-transform: rotate(-45deg);
+                        transform: rotate(-45deg);">
+                    &#9906;
+                </div>
+            </button>
+        </form>
+
+        <label class="switch">
+            <input type="checkbox" id="unit">
+            <span class="slider round"></span>
+            <div class="labels">
+                <div class="text c">°C</div>
+                <div class="text f">°F</div>
             </div>
-        </button>
-    </form>
+        </label>
+    </header>
+
     <div id="error"></div>
 
     <div id="display">
         <div id="today">
             <div id="city"></div>
             <div id="weather"></div>
+            <img src="" id="icon">
             <div id="temperature"></div>
         </div>
 

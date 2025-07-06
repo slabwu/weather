@@ -1,9 +1,10 @@
 const form = document.querySelector('form')
 const $ = (id) => document.getElementById(id)
+let unit = 'metric'
 
-async function fetchData(city) {
+async function fetchData(city, unit = 'metric') {
     try {
-        let url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&key=AZCAT733R2JW9VH8FKUAD45L4&contentType=json`
+        let url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=${unit}&key=AZCAT733R2JW9VH8FKUAD45L4&contentType=json`
         let response = await fetch(url, {mode: 'cors'})
         let data = await response.json()
         return processData(data)
@@ -40,7 +41,7 @@ function renderData(data) {
     $('city').innerText = data.address
     $('weather').innerText = data.conditions
     $('temperature').innerText = data.temp
-    addIcon(data.icon, 'today')
+    $('icon').src = `./assets/${data.icon}.svg`
 
     let details = ['feelslike', 'humidity', 'precipprob', 'uvindex', 'visibility']
     details.forEach(detail =>
@@ -62,9 +63,18 @@ function renderData(data) {
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
-    let search = document.querySelector('#search').value
-    if (search) fetchData(search).then(renderData)
+    searchCity()
 })
+
+$('unit').addEventListener('click', (e) => {
+    unit = (unit === 'metric') ? 'us' : 'metric'
+    searchCity()
+})
+
+function searchCity() {
+    let search = document.querySelector('#search').value
+    if (search) fetchData(search, unit).then(renderData)
+}
 
 function addElement(name, tag, target, text = '') {
     const element = document.createElement(`${tag}`)

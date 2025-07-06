@@ -1,5 +1,6 @@
 :root {
-    --foreground: rgb(9, 127, 245);
+    --accent: rgb(44, 155, 246);
+    --foreground: royalblue;
     --background: deepskyblue;
 }
 
@@ -9,6 +10,9 @@ body {
     font-family: Helvetica, Arial, sans-serif;
     text-align: center;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #display {
@@ -18,7 +22,7 @@ body {
 }
 
 #today {
-    background-color: rgb(44, 155, 246);
+    background-color: var(--accent);
     margin: 10px;
     border-radius: 10px;
 }
@@ -60,12 +64,104 @@ input {
 }
 
 #submit {
-    height: 25px;
+    height: 32px;
+    margin-top: 8px;
     aspect-ratio: 1 / 1;
     border: none;
     border-radius: 100%;
     color: white;
     background-color: royalblue;
-    font-size: 16px;
+    font-size: 20px;
     padding: 2px 0 0 2px;
+    cursor: pointer;
+}
+
+img {
+    width: 100px;
+}
+
+#today img {
+    width: 300px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  cursor: pointer;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--accent);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--foreground);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--accent);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.labels {
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+    bottom: 14px;
+    font-size: 12px;
+}
+
+input:checked + .text::before {
+    color: red;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 10px
 }
