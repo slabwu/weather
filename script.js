@@ -40,15 +40,15 @@ function renderData(data) {
 
     $('city').innerText = data.address
     $('weather').innerText = data.conditions
-    $('temperature').innerText = data.temp
+    $('temperature').innerText = `${data.temp}°`
     $('icon').src = `./assets/${data.icon}.svg`
 
     let details = [
         {name: 'feelslike', text: 'Feels Like', unit: '°', icon: 'thermometer'},
         {name: 'humidity', text: 'Humidity', unit: '%', icon: 'humidity'},
         {name: 'precipprob', text: 'Chance of Rain', unit: '%', icon: 'umbrella'},
-        {name: 'uvindex', text: 'UV Index', unit: '°', icon: 'star'},
-        {name: 'visibility', text: 'Visibility', unit: '°', icon: 'wind'}
+        {name: 'uvindex', text: 'UV Index', unit: '', icon: 'star'},
+        {name: 'visibility', text: 'Visibility', unit: 'km', icon: 'wind'}
     ]
 
     details.forEach(detail => {
@@ -67,9 +67,8 @@ function renderData(data) {
 
         content += `<div>${dayOfWeek[new Date(data.forecast[i].datetime).getDay()]}</div>`
         content += `<img src='./assets/${data.forecast[i].icon}.svg'>`
-
-        let dayDetails = ['conditions', 'tempmin', 'tempmax']
-        dayDetails.forEach(detail => content += `<div>${data.forecast[i][detail]}</div>`)
+        content += `<div>${data.forecast[i]['conditions']}</div>`
+        content += `<div class='temperature'><div>${data.forecast[i]['tempmin']}°</div><div>${data.forecast[i]['tempmax']}°</div></div>`
 
         let day = `D+${i}`
         addElement(day, 'div', 'forecast', content)
@@ -89,6 +88,7 @@ $('unit').addEventListener('click', (e) => {
 function searchCity() {
     let search = document.querySelector('#search').value
     if (search) fetchData(search, unit).then(renderData)
+    if (!search && $('city').innerText == 'New York') fetchData('New York', unit).then(renderData)
 }
 
 function addElement(name, tag, target, content = '') {
@@ -104,4 +104,4 @@ function addIcon(name, target) {
     document.getElementById(`${target}`).appendChild(icon)
 }
 
-fetchData('Paris').then(renderData)
+fetchData('New York').then(renderData)
