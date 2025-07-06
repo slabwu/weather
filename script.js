@@ -1,6 +1,7 @@
 const form = document.querySelector('form')
 const $ = (id) => document.getElementById(id)
 let unit = 'metric'
+let currentCity = 'New York'
 
 async function fetchData(city, unit = 'metric') {
     try {
@@ -16,10 +17,10 @@ async function fetchData(city, unit = 'metric') {
 
 function processData(data) {
     let processed = {
-        address: data.address
+        address: data.resolvedAddress
     }
 
-    let today = ['datetime', 'temp', 'conditions', 'feelslike', 'humidity', 'precipprob', 'uvindex', 'visibility', 'icon']
+    let today = ['datetime', 'temp', 'conditions', 'feelslike', 'humidity', 'precipprob', 'uvindex', 'windspeed', 'icon']
     today.forEach(value => processed[value] = data.currentConditions[value])
 
     
@@ -38,7 +39,7 @@ function renderData(data) {
     $('forecast').innerText = ''
     console.log(data)
 
-    $('city').innerText = data.address.toUpperCase()
+    $('city').innerText = data.address
     $('weather').innerText = data.conditions
     $('temperature').innerText = `${data.temp}°`
     $('icon').src = `./assets/${data.icon}.svg`
@@ -48,7 +49,7 @@ function renderData(data) {
         {name: 'humidity', text: 'Humidity', unit: '%', icon: 'humidity'},
         {name: 'precipprob', text: 'Chance of Rain', unit: '%', icon: 'umbrella'},
         {name: 'uvindex', text: 'UV Index', unit: '', icon: 'star'},
-        {name: 'visibility', text: 'Visibility', unit: 'km', icon: 'wind'}
+        {name: 'windspeed', text: 'Wind Speed', unit: 'km/h', icon: 'wind'}
     ]
 
     details.forEach(detail => {
@@ -56,7 +57,11 @@ function renderData(data) {
         addIcon(detail.icon, detail.name)
         let content = ''
         content += `<div>${detail.text}</div>`
-        content += `<div>${data[detail.name]}${detail.unit}</div>`
+        if (unit === 'us' && detail.name === 'windspeed') {
+            content += `<div>${data[detail.name]}mph</div>`
+        } else {
+            content += `<div>${data[detail.name]}${detail.unit}</div>`
+        }
         $(detail.name).innerHTML += content
     })
 
@@ -77,6 +82,7 @@ function renderData(data) {
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
+    currentCity = document.querySelector('#search').value
     searchCity()
 })
 
@@ -86,7 +92,7 @@ $('unit').addEventListener('click', (e) => {
 })
 
 function searchCity() {
-    let search = document.querySelector('#search').value
+    let search = currentCity
     if (search) fetchData(search, unit).then(renderData)
     if (!search && $('city').innerText == 'New York') fetchData('New York', unit).then(renderData)
 }
