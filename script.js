@@ -40,6 +40,7 @@ function renderData(data) {
     $('city').innerText = data.address
     $('weather').innerText = data.conditions
     $('temperature').innerText = data.temp
+    addIcon(data.icon, 'today')
 
     let details = ['feelslike', 'humidity', 'precipprob', 'uvindex', 'visibility']
     details.forEach(detail =>
@@ -52,7 +53,8 @@ function renderData(data) {
 
         let dayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
         addElement(`datetime${i}`, 'div', day, dayOfWeek[new Date(data.forecast[i].datetime).getDay()])
-
+        addIcon(data.forecast[i].icon, day)
+        
         let dayDetails = ['conditions', 'tempmin', 'tempmax']
         dayDetails.forEach(detail => addElement(`${detail}${i}`, 'div', day, data.forecast[i][detail]))
     }
@@ -65,10 +67,16 @@ form.addEventListener('submit', (e) => {
 })
 
 function addElement(name, tag, target, text = '') {
-    const element = document.createElement(`${tag}`);
-    element.id = name;
-    element.innerHTML = text;
-    document.getElementById(`${target}`).appendChild(element);
+    const element = document.createElement(`${tag}`)
+    element.id = name
+    element.innerHTML = text
+    document.getElementById(`${target}`).appendChild(element)
+}
+
+function addIcon(name, target) {
+    const icon = document.createElement('img')
+    icon.src = `./assets/${name}.svg`
+    document.getElementById(`${target}`).appendChild(icon)
 }
 
 fetchData('Paris').then(renderData)

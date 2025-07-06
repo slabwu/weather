@@ -1,28 +1,41 @@
+:root {
+    --foreground: rgb(9, 127, 245);
+    --background: deepskyblue;
+}
+
+body {
+    color: white;
+    background-color: var(--background);
+    font-family: Helvetica, Arial, sans-serif;
+    text-align: center;
+    height: 100vh;
+}
+
 #display {
-    background-color: orange;
     display: grid;
-    grid: 2fr 1fr / 1fr 1fr;
+    grid: 1.5fr 1fr / 1fr 1fr;
+    height: 100vh;
 }
 
 #today {
-    background-color: red;
-    padding: 10px;
+    background-color: rgb(44, 155, 246);
+    margin: 10px;
+    border-radius: 10px;
 }
 
 #details {
-    background-color: green;
     display: grid;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     padding: 10px;
 }
 
 #details > div {
-    background-color: lime;
+    background-color: var(--foreground);
+    border-radius: 10px;
 }
 
 #forecast {
-    background-color: pink;
     display: flex;
     justify-content: space-between;
     grid-column: span 2;
@@ -30,8 +43,29 @@
 }
 
 #forecast > div {
-    background-color: blue;
-    aspect-ratio: 1 / 1;
-    width: 200px;
+    background-color: var(--foreground);
+    height: min(18vw, 200px);
+    width: min(18vw, 200px);
     padding: 10px;
+    border-radius: 10px;
+}
+
+input {
+    margin: 10px;
+    width: 200px;
+    border-radius: 16px;
+    border: none;
+    background-color: rgb(225, 225, 250);
+    padding: 6px 6px 6px 10px;
+}
+
+#submit {
+    height: 25px;
+    aspect-ratio: 1 / 1;
+    border: none;
+    border-radius: 100%;
+    color: white;
+    background-color: royalblue;
+    font-size: 16px;
+    padding: 2px 0 0 2px;
 }
