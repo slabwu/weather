@@ -43,21 +43,36 @@ function renderData(data) {
     $('temperature').innerText = data.temp
     $('icon').src = `./assets/${data.icon}.svg`
 
-    let details = ['feelslike', 'humidity', 'precipprob', 'uvindex', 'visibility']
-    details.forEach(detail =>
-        $(detail).innerText = `${detail}: ${data[detail]}`
-    )
+    let details = [
+        {name: 'feelslike', text: 'Feels Like', unit: '°', icon: 'thermometer'},
+        {name: 'humidity', text: 'Humidity', unit: '%', icon: 'humidity'},
+        {name: 'precipprob', text: 'Chance of Rain', unit: '%', icon: 'umbrella'},
+        {name: 'uvindex', text: 'UV Index', unit: '°', icon: 'star'},
+        {name: 'visibility', text: 'Visibility', unit: '°', icon: 'wind'}
+    ]
+
+    details.forEach(detail => {
+        $(detail.name).innerHTML = ''
+        addIcon(detail.icon, detail.name)
+        let content = ''
+        content += `<div>${detail.text}</div>`
+        content += `<div>${data[detail.name]}${detail.unit}</div>`
+        $(detail.name).innerHTML += content
+    })
+
+    let dayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
     for (i = 0; i < 5; i++) {
-        let day = `D+${i}`
-        addElement(day, 'div', 'forecast')
+        let content = ''
 
-        let dayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-        addElement(`datetime${i}`, 'div', day, dayOfWeek[new Date(data.forecast[i].datetime).getDay()])
-        addIcon(data.forecast[i].icon, day)
-        
+        content += `<div>${dayOfWeek[new Date(data.forecast[i].datetime).getDay()]}</div>`
+        content += `<img src='./assets/${data.forecast[i].icon}.svg'>`
+
         let dayDetails = ['conditions', 'tempmin', 'tempmax']
-        dayDetails.forEach(detail => addElement(`${detail}${i}`, 'div', day, data.forecast[i][detail]))
+        dayDetails.forEach(detail => content += `<div>${data.forecast[i][detail]}</div>`)
+
+        let day = `D+${i}`
+        addElement(day, 'div', 'forecast', content)
     }
 }
 
@@ -76,10 +91,10 @@ function searchCity() {
     if (search) fetchData(search, unit).then(renderData)
 }
 
-function addElement(name, tag, target, text = '') {
+function addElement(name, tag, target, content = '') {
     const element = document.createElement(`${tag}`)
     element.id = name
-    element.innerHTML = text
+    element.innerHTML = content
     document.getElementById(`${target}`).appendChild(element)
 }
 
