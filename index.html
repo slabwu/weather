@@ -9,6 +9,15 @@
 </head>
 <body>
     <header>
+        <label class="switch">
+            <input type="checkbox" id="unit">
+            <span class="slider round"></span>
+            <div class="labels">
+                <div class="text c">°C</div>
+                <div class="text f">°F</div>
+            </div>
+        </label>
+
         <form action="">
             <input type="search" id="search" name="search" placeholder="Search for a location"/>
             <button type="submit" id="submit">
@@ -21,17 +30,8 @@
             </button>
         </form>
 
-        <label class="switch">
-            <input type="checkbox" id="unit">
-            <span class="slider round"></span>
-            <div class="labels">
-                <div class="text c">°C</div>
-                <div class="text f">°F</div>
-            </div>
-        </label>
+        <div id="error"></div>
     </header>
-
-    <div id="error"></div>
 
     <div id="display">
         <div id="today" class="glass">

@@ -10,6 +10,7 @@ body {
     font-family: Montserrat, Helvetica, Arial, sans-serif;
     text-align: center;
     height: 100vh;
+    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,9 +20,9 @@ body {
 }
 
 #display {
-    display: grid;
     grid: 1.5fr 1fr / 1.2fr 1fr;
     height: 100vh;
+    display: none;
 }
 
 #today {
@@ -37,6 +38,11 @@ body {
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
     text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
     position: relative;
+    transition: 0.1s;
+}
+
+#today:hover {
+    transform: scale(1.02);
 }
 
 #temperature {
@@ -74,6 +80,11 @@ body {
     border-left: 1.5px solid rgba(255, 255, 255, 0.3);
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
     text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+    transition: 0.1s;
+}
+
+#details > div:hover {
+    transform: scale(1.03);
 }
 
 #forecast {
@@ -99,6 +110,11 @@ body {
     border-left: 1.5px solid rgba(255, 255, 255, 0.3);
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
     text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+    transition: 0.1s;
+}
+
+#forecast > div:hover {
+    transform: scale(1.04);
 }
 
 #forecast > div > div:nth-child(1) {
@@ -134,6 +150,7 @@ input {
     border-left: 1.5px solid rgba(255, 255, 255, 0.3);
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
     transition: all 0.5 ease;
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
 }
 
 input::placeholder {
@@ -145,8 +162,7 @@ input:focus {
 }
 
 #submit {
-    height: 32px;
-    margin-top: 8px;
+    height: 34px;
     aspect-ratio: 1 / 1;
     border: none;
     border-radius: 100%;
@@ -160,6 +176,7 @@ input:focus {
     border-left: 1.5px solid rgba(255, 255, 255, 0.3);
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
     text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(3px)
 }
 
 img {
@@ -194,7 +211,7 @@ img {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--accent);
+  background-color: var(--foreground);
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -204,17 +221,18 @@ img {
     content: "";
     height: 26px;
     width: 26px;
-    left: 4px;
+    left: 3px;
     bottom: 4px;
-    background-color: rgba(13, 21, 138, 0.5);
-    border-top: 1.5px solid rgba(255, 255, 255, 0.4);
-    border-left: 1.5px solid rgba(255, 255, 255, 0.3);
+    background-color: var(--accent);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     -webkit-transition: .4s;
     transition: .4s;
 }
 
 input:checked + .slider {
-    background-color: var(--accent);
+    background-color: var(--foreground);
 }
 
 input:checked + .slider:before {
@@ -241,8 +259,9 @@ input:checked + .slider:before {
     display: flex;
     justify-content: space-evenly;
     position: relative;
-    bottom: 14px;
-    font-size: 12px;
+    bottom: 17px;
+    font-size: 14px;
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
 }
 
 input:checked + .text::before {
@@ -252,7 +271,9 @@ input:checked + .text::before {
 header {
     display: flex;
     align-items: center;
-    gap: 10px
+    gap: 3px;
+    position: relative;
+    margin: 10px 0 2px 0;
 }
 
 #details > div {
@@ -266,4 +287,12 @@ header {
 #details > div > div:nth-of-type(1) {
     flex: 1;
     text-align: left;
+}
+
+#error {
+    position: absolute;
+    left: 330px;
+    font-size: 14px;
+    width: 200px;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
 }

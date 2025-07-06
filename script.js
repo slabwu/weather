@@ -78,6 +78,8 @@ function renderData(data) {
         let day = `D+${i}`
         addElement(day, 'div', 'forecast', content)
     }
+
+    $('display').style.display = 'grid'
 }
 
 form.addEventListener('submit', (e) => {
