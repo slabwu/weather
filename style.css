@@ -326,3 +326,27 @@ header {
 @keyframes l2 {
   to{transform: rotate(.5turn)}
 }
+
+#logo {
+    height: 40px;
+    width: 40px;
+    transform: translateY(4px);
+}
+
+#github {
+    height: 34px;
+    width: 34px;
+    transform: translateY(6px);
+    transition: 0.3s ease;
+}
+
+#github:hover {
+    transform: translateY(6px) rotate(360deg);
+}
+
+#top {
+    display: flex;
+    justify-content: space-between;
+    width: 86vw;
+    align-items: center;
+}
